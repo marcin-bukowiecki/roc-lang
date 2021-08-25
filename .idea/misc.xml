@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ANTLRGenerationPreferences">
+    <option name="perGrammarGenerationSettings">
+      <list>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/grammar/RocLexer.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="D:\Users\Marcin\CLionProjects\roc-lang" />
+          <option name="libDir" value="D:\Users\Marcin\CLionProjects\roc-lang\grammar" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="Cpp" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+      </list>
+    </option>
+  </component>
+  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/tests">
+    <contentRoot DIR="$PROJECT_DIR$" />
+  </component>
+  <component name="CidrRootsConfiguration">
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/cmake-build-debug" />
+      <file path="$PROJECT_DIR$/junk" />
+      <file path="$PROJECT_DIR$/lib" />
+      <file path="$PROJECT_DIR$/tests/sandbox" />
+    </excludeRoots>
+  </component>
+</project>
