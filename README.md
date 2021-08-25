@@ -12,3 +12,9 @@ Project is divided into 5 modules:
 - `passes` -> passes to resolve jump labels, reference increment/decrement etc.
 
 If you want to play around check unit tests in `tests` module.
+
+# Requirements
+
+- LLVM compiler infrastructure
+- Clang to link compiled output with code from `linkubg` module
+
