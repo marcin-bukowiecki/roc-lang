@@ -5,7 +5,6 @@
 #include "LLVMUtils.h"
 #include "LLVMBackend.h"
 #include <llvm/IR/IRBuilder.h>
-#include "../linking/API.h"
 
 BuiltinFunctionResolver::BuiltinFunctionResolver() {
     auto bf = new BuiltinFunction("println",

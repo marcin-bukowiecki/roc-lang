@@ -144,7 +144,6 @@ void ASTVisitor::visit(FunctionCallNode *fc) {
  */
 ModuleDeclaration::ModuleDeclaration(std::string moduleName,
                                      std::string absolutePath,
-        //std::shared_ptr<ModulePathDeclaration> path,
                                      std::vector<std::unique_ptr<ImportDeclaration>> imports,
                                      std::vector<std::unique_ptr<FunctionDeclaration>> functions,
                                      std::vector<std::unique_ptr<StructDeclaration>> types,
@@ -153,7 +152,6 @@ ModuleDeclaration::ModuleDeclaration(std::string moduleName,
 
     this->moduleName = std::move(moduleName);
     this->absolutePath = std::move(absolutePath);
-    //this->path = std::move(path);
     this->staticBlock = staticBlock;
     this->types = std::move(types);
     this->imports = std::move(imports);
@@ -815,11 +813,6 @@ void NotEqualOpExpr::accept(ASTVisitor *visitor) {
     visitor->visit(this);
 }
 
-/*
-void FieldDeclaration::visit(ASTVisitor *visitor) {
-    visitor->accept(this);
-}
-*/
 void ExpressionVisitor::visit(LeftCurl *leftCurl, VisitingContext *ctx) {
 
 }
@@ -1396,14 +1389,7 @@ void ForLoopVisitor::visit(ForKeyword *forKeyword, VisitingContext *ctx) {
     }
 
     auto doKeyword = lexer->currentToken;
-/*
-    if (this->expressions.size() == 1) {
-        this->subject = std::make_unique<SingleForLoopIndex>(std::move(this->expressions.at(0)));
-    } else if (this->expressions.size() == 3) {
-        this->subject = std::make_unique<MultiForLoopSubject>(std::move(this->expressions),
-                                                              std::move(this->semicolons));
-    }
-*/
+
     expressions.clear();
 
     while (lexer->hasNext()) {
@@ -1446,28 +1432,6 @@ void ReferenceExpressionVisitor::visit(Sub *sub, VisitingContext *ctx) {
     this->currentExpression = std::make_unique<NegativeExpr>(std::unique_ptr<Token>(sub),
                                                              std::move(rightHandExpressionVisitor.currentExpression));
 }
-
-/*
-void ReferenceExpressionVisitor::visit(DoubleNumber *dn, VisitingContext *ctx) {
-    auto next = lexer->nextTokenSkipWS();
-    auto subject = std::make_shared<DoubleNode>(std::shared_ptr<DoubleNumber>(dn));
-    this->expressions.push_back(subject);
-}
-
-void ReferenceExpressionVisitor::visit(Literal *literal, VisitingContext *ctx) {
-    auto next = lexer->nextTokenSkipWS();
-    auto literalExpr = std::make_shared<LiteralExpr>(literal);
-    if (next->getTokenType() == ElementType::leftParenthesis) {
-        ArgumentsVisitor av(lexer);
-        av.accept(ctx);
-        auto functionCall = std::make_shared<FunctionCallNode>(literalExpr, std::make_shared<ArgumentList>(av.arguments));
-        this->lexer->nextToken();
-        this->expressions.push_back(functionCall);
-    } else {
-        this->expressions.push_back(literalExpr);
-    }
-}
-*/
 
 void WhileLoopVisitor::visit(WhileKeyword *whileKeyword, VisitingContext *ctx) {
     auto lexer = ctx->lexer;

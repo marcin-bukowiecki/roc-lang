@@ -122,7 +122,7 @@ RocCompilationResult * RocCompiler::compile(const std::string& filePath) {
     }
 }
 
-RocCompilationResult* RocCompiler::compile(const std::string& expr, std::string outputFileName) {
+RocCompilationResult* RocCompiler::compile(const std::string& expr, const std::string& outputFileName) {
     std::ofstream f(outputFileName);
     f << expr;
     f.close();
@@ -245,15 +245,8 @@ RocCompilationResult* LLVMBackendProvider::compile(std::shared_ptr<ModuleDeclara
 
     ToLLVMVisitor visitor(&Context, M);
     toMirVisitor.mirModule->visit(&visitor);
-    //errs() << "We just constructed this LLVM module:\n\n---------\n" << *M;
     verifyModule1(M);
 
-/*
-    std::error_code EC;
-    llvm::raw_fd_ostream OS("module.ll", EC, llvm::sys::fs::F_None);
-    M->print(OS, nullptr);
-    OS.flush();
-*/
     auto cr = new RocCompilationResult();
     auto TargetTriple = sys::getDefaultTargetTriple();
     M->setTargetTriple(TargetTriple);
@@ -269,14 +262,12 @@ RocCompilationResult* LLVMBackendProvider::compile(std::shared_ptr<ModuleDeclara
     auto CPU = "generic";
     auto Features = "";
 
-
     TargetOptions opt;
     auto RM = Optional<Reloc::Model>();
     auto TheTargetMachine =
             Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
 
     M->setDataLayout(TheTargetMachine->createDataLayout());
-
 
     auto Filename = "output.s";
     std::error_code EC;
@@ -323,40 +314,6 @@ RocCompilationResult* LLVMBackendProvider::compile(std::shared_ptr<ModuleDeclara
     cr->mainFunction = visitor.mainFunction;
     cr->mainFunctionPtr = fa;
     cr->EE = EE;
-
-    auto int32init = EE->getFunctionAddress("Int32.toString.0");
-    auto int32initFN = (StringRawRType* (*)(Int32RType*)) int32init;
-    Int32RType ss;
-    ss.value = 1234;
-    auto rss = int32initFN(&ss);
-
-    //auto ffptr = (long long (*)()) EE->getFunctionAddress("Int32.vtable.init");
-    //ffptr();
-
-/*
-
-    auto int32init = EE->getFunctionAddress("Int32.vtable.init");
-    auto int32initFN = (long long (*)()) int32init;
-    long long result = int32initFN();
-
-    Int32 int32;
-    int32.value = 1234;
-    int32.vTable = result;
-
-    auto fn1 = (int (*)(Int32*)) myGetFunctionPointer((AnyRType*) &int32, 0);
-    std::cout << "Type id: " << fn1(&int32) << std::endl;
-
-    auto fn2 = (StringRawType* (*)(Int32*)) myGetFunctionPointer((AnyRType*) &int32, 1);
-    std::cout << "String representation: " << fn2(&int32)->data << std::endl;
-
-
-    auto p = EE->getFunctionAddress("println");
-    auto pFN = (void (*)(AnyRType*)) p;
-    pFN((AnyRType*) &int32);
-
-    auto p2 = EE->getFunctionAddress("print");
-    auto p2FN = (void (*)(AnyRType*)) p2;
-    p2FN((AnyRType*) &int32);*/
 
     return cr;
 }

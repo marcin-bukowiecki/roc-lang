@@ -108,7 +108,7 @@ public:
 
     static RocCompilationResult *compile(const std::string& filePath);
 
-    static RocCompilationResult *compile(const std::string& expr, std::string outputFileName);
+    static RocCompilationResult *compile(const std::string& expr, const std::string& outputFileName);
 
     static RocCompilationResult *compile(std::shared_ptr<ModuleDeclaration> moduleDeclaration,
                                          CompilationContext *compilationContext);
