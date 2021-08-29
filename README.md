@@ -16,5 +16,5 @@ If you want to play around check unit tests in `tests` module.
 # Requirements
 
 - LLVM compiler infrastructure
-- Clang to link compiled output with code from `linkubg` module
+- Clang to link compiled output with code from `linking` module
 
