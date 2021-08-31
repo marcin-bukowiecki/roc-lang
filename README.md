@@ -34,9 +34,9 @@ printHello()
 - LLVM compiler infrastructure
 - Clang to link compiled output with code from `linking` module
 
-For example if given compiler produces an `output.s` file to build a final executable you must link it with runtime API (see `linking/API.cpp`).
+For example, if given compiler produces an `output.s` file to build a final executable you must link it with runtime API (see `linking/API.cpp`).
 
-Command (if `output.s` and `API.cpp`, `API.h` are in same directory):
+Command (`output.s` and `API.cpp`, `API.h` must be in the same directory):
 
 ```
 clang API.cpp output.s -o myprogram.exe
