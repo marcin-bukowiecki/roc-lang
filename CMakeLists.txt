@@ -28,6 +28,9 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/libs/
 )
 
+configure_file(${PROJECT_SOURCE_DIR}/linking/API.cpp ${PROJECT_BINARY_DIR}/API.cpp COPYONLY)
+configure_file(${PROJECT_SOURCE_DIR}/linking/API.h ${PROJECT_BINARY_DIR}/API.h COPYONLY)
+
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 

@@ -34,7 +34,38 @@ printHello()
 - LLVM compiler infrastructure
 - Clang to link compiled output with code from `linking` module
 
-For example, if given compiler produces an `output.s` file to build a final executable you must link it with runtime API (see `linking/API.cpp`).
+# Building
+
+In the root directory create a build directory:
+
+```
+mkdir mybuilddir
+```
+
+Then:
+
+```
+cd mybuilddir
+```
+
+From the `mybuilddir` execute following command:
+
+```
+cmake ..
+```
+
+After that execute build command:
+
+```
+cmake --build . --target roc-lang
+```
+
+This will produce a ready to use compiler executable (depending on build type: in `mybuildir/Debug` or `mybuilddir/Release`).
+
+# Compiling
+
+Given compiler produces an `output.s` file. 
+To build a final executable you must link it with runtime API (see `linking/API.cpp` and `linking/API.h`).
 
 Command (`output.s` and `API.cpp`, `API.h` must be in the same directory):
 
