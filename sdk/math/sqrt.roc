@@ -1,5 +1,5 @@
 package math
 
-fun Sqrt(x f64) -> f64 {
-    ret ccall<f64>("Sqrt", x)
+fun Sqrt(x Float64) -> Float64 {
+    ret ccall<Float64>("Sqrt", x)
 }

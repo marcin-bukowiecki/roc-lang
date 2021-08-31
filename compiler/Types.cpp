@@ -127,6 +127,9 @@ void TypeResolver::visit(FunctionCallNode *node) {
 }
 
 void TypeResolver::visit(FunctionVoidReturnTypeNode *functionVoidReturnTypeNode) {
+    if (!functionVoidReturnTypeNode->typeNode->containsContext(TYPE_CONTEXT)) {
+        functionVoidReturnTypeNode->typeNode->addContextHolder(TYPE_CONTEXT, new RocTypeNodeContext());
+    }
     ((RocTypeNodeContext*) functionVoidReturnTypeNode->typeNode->getContextHolder(TYPE_CONTEXT))->setGivenType(new UnitRocType());
 }
 
@@ -201,14 +204,20 @@ void TypeResolver::visit(ModExpr *modExpr) {
     }
 }
 
+void TypeResolver::visit(EqualOpExpr *opExpr) {
+    ASTVisitor::visit(opExpr);
+    createTypeContext(opExpr);
+    setType(opExpr, new RocBoolType());
+}
+
 void TypeResolver::visit(SingleTypeNode *node) {
     createTypeContext(node);
     auto text = node->getText();
-    if (text == "i64") {
+    if (text == "Int64") {
         setType(node, new RocInt64Type());
-    } else if (text == "i32" || text == "int") {
+    } else if (text == "Int32" || text == "Int") {
         setType(node, new RocInt32Type());
-    } else if (text == "f64") {
+    } else if (text == "Float64") {
         setType(node, new RocFloat64Type());
     } else if (text == "Bool") {
         setType(node, new RocBoolType());

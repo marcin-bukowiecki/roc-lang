@@ -19,6 +19,8 @@ file(GLOB Sources
         mir/*.cpp
         linking/*.h
         linking/*.cpp
+        passes/*.h
+        passes/*.cpp
 )
 
 message("List of Parser files: ${ParserSources}")

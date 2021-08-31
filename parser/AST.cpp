@@ -144,12 +144,14 @@ void ASTVisitor::visit(FunctionCallNode *fc) {
  */
 ModuleDeclaration::ModuleDeclaration(std::string moduleName,
                                      std::string absolutePath,
+                                     std::unique_ptr<PackageNode> packageNode,
                                      std::vector<std::unique_ptr<ImportDeclaration>> imports,
                                      std::vector<std::unique_ptr<FunctionDeclaration>> functions,
                                      std::vector<std::unique_ptr<StructDeclaration>> types,
                                      StaticBlock* staticBlock) : ASTNode(
         ElementType::moduleDeclaration) {
 
+    this->packageNode = std::move(packageNode);
     this->moduleName = std::move(moduleName);
     this->absolutePath = std::move(absolutePath);
     this->staticBlock = staticBlock;
@@ -1056,6 +1058,10 @@ void ExpressionVisitor::visit(ImportKeyword *keyword, VisitingContext *ctx) {
 }
 
 void ExpressionVisitor::visit(IfKeyword *ifKeyword, VisitingContext *ctx) {
+    IfVisitor ifVisitor;
+    ifKeyword->visit(&ifVisitor, ctx);
+    this->currentExpression = std::unique_ptr<IfExpression>(ifVisitor.conditionalExpression);
+
     /*
     auto* t = lexer->nextToken();
     ExpressionVisitor expressionVisitor(this->lexer);
@@ -1105,6 +1111,11 @@ void ConditionBlockVisitor::visit(VisitingContext *ctx) {
     auto lexer = ctx->lexer;
     while (lexer->hasNext()) {
         auto peeked = lexer->peekNext();
+        if (peeked->isNewLine()) {
+            delete peeked;
+            lexer->nextToken();
+            continue;
+        }
         if (peeked->getTokenType() == ElementType::rightCurl) {
             break;
         }

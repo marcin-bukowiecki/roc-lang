@@ -329,7 +329,7 @@ public:
     void visit(RocTypeVisitor *visitor) override;
 
     std::string toString() override {
-        return "unit";
+        return "Unit";
     }
 
     std::string internalName() override {
@@ -449,7 +449,7 @@ public:
     void visit(RocTypeVisitor *visitor) override;
 
     std::string toString() override {
-        return "int64";
+        return "Int64";
     }
 
     std::string internalName() override {
@@ -489,7 +489,7 @@ public:
     void visit(RocTypeVisitor *visitor) override;
 
     std::string toString() override {
-        return "float64";
+        return "Float64";
     }
 
     std::string internalName() override {
@@ -509,7 +509,7 @@ public:
     }
 
     std::string prettyName() override {
-        return "float64";
+        return "Float64";
     }
 
     llvm::Type* getLLVMType(RocLLVMContext *rocLLVMContext) override;
@@ -734,6 +734,8 @@ public:
     void visit(LocalAccess *node) override;
 
     void visit(IfExpression *ifExpression) override;
+
+    void visit(EqualOpExpr *opExpr) override;
 };
 
 /**

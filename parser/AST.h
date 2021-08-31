@@ -119,6 +119,15 @@ public:
         return getContextHolder(key);
     }
 
+    bool containsContext(const std::string& key) {
+        auto it = contextHolder.find(key);
+        if (it != contextHolder.end()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     NodeContextHolder* getContextHolder(const std::string& key) {
         return contextHolder.find(key)->second;
     }
@@ -1352,13 +1361,14 @@ class ModuleDeclaration : public ASTNode, public CompilationNode, public WithFie
 public:
     std::string moduleName;
     std::string absolutePath;
-    PackageNode* packageNode;
+    std::unique_ptr<PackageNode> packageNode;
     StaticBlock* staticBlock;
     std::vector<std::unique_ptr<FunctionDeclaration>> functions;
     std::vector<std::unique_ptr<StructDeclaration>> types;
 
     ModuleDeclaration(std::string moduleName,
                       std::string absolutePath,
+                      std::unique_ptr<PackageNode> packageNode,
                       std::vector<std::unique_ptr<ImportDeclaration>> imports,
                       std::vector<std::unique_ptr<FunctionDeclaration>> functions,
                       std::vector<std::unique_ptr<StructDeclaration>> types,

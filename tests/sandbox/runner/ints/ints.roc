@@ -1,9 +1,9 @@
 package main
 
 fun adder (
-a int, b
-int) ->
-int {
+a Int, b
+Int) ->
+Int {
     ret
     a +
     b

@@ -170,6 +170,7 @@ void ModuleParser::parse() {
     std::shared_ptr<ModuleDeclaration> module = std::make_shared<ModuleDeclaration>(
             "DUMMY",
             this->parseContext->lexer->filePath,
+            std::unique_ptr<PackageNode>(packageNode),
             std::move(imports),
             std::move(parserVisitor.functions),
             std::move(parserVisitor.types),
@@ -226,6 +227,10 @@ void SyntaxException::printMessage() const {
     std::cerr << "Error in " + filePath << std::endl;
 
     while (lexer.hasNext()) {
+        if (lexer.offset == this->startOffset) {
+            markerMode = true;
+        }
+
         char ch = lexer.nextChar();
         lineAcc += ch;
 
@@ -240,9 +245,6 @@ void SyntaxException::printMessage() const {
             lineAcc.clear();
         }
 
-        if (lexer.offset == this->startOffset) {
-            markerMode = true;
-        }
         if (markerMode) {
             marker += "^";
         } else {

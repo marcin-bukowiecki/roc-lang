@@ -209,12 +209,8 @@ int verifyModule1(Module* M) {
         errs() << ": Error constructing function!\n";
         return 1;
     }
+    M->print(errs(), nullptr);
     return 0;
-}
-
-
-void test() {
-    std::cout << "TestTest";
 }
 
 RocCompilationResult* LLVMBackendProvider::compile(std::shared_ptr<ModuleDeclaration> moduleDeclaration,

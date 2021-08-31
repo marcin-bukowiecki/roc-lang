@@ -65,6 +65,11 @@ public:
                     initMain(compilationResult);
 
                     auto ref = (bool (*)()) compilationResult->EE->getFunctionAddress("box");
+
+                    if (ref == nullptr) {
+                        std::cerr << "box() not found";
+                        continue;
+                    }
                     if (ref()) {
                         std::cout << "PASSED: " + p.path().filename().string() << std::endl;
                     } else {

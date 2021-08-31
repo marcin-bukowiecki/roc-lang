@@ -7,7 +7,8 @@
 #include <llvm/ExecutionEngine/ExecutionEngine.h>
 
 TEST_CASE("Return Int 1", "[returnInt1]") {
-    auto result = RocCompiler::compile("fun test() -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test() -> Int32 {\n"
                                        "  ret 3;\n"
                                        "}\n test()", "Test1");
     if (result) {
@@ -19,7 +20,8 @@ TEST_CASE("Return Int 1", "[returnInt1]") {
 }
 
 TEST_CASE("Div Ints 1", "[divInts1]") {
-    auto result = RocCompiler::compile("fun test() -> Float64 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test() -> Float64 {\n"
                                        "  ret 8 / 2;\n"
                                        "}\n test()", "Test1");
     if (result) {
@@ -31,7 +33,8 @@ TEST_CASE("Div Ints 1", "[divInts1]") {
 }
 
 TEST_CASE("Div Ints 2", "[divInts2]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Float64 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Float64 {\n"
                                        "  ret 9 / a;\n"
                                        "}\n test(3)", "Test1");
     if (result) {
@@ -43,7 +46,8 @@ TEST_CASE("Div Ints 2", "[divInts2]") {
 }
 
 TEST_CASE("Div Ints 3", "[divInts3]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Float64 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Float64 {\n"
                                        "  ret a / b;\n"
                                        "}\n test(60, 2)", "Test1");
     if (result) {
@@ -55,7 +59,8 @@ TEST_CASE("Div Ints 3", "[divInts3]") {
 }
 
 TEST_CASE("Mul Ints 1", "[mulInts1]") {
-    auto result = RocCompiler::compile("fun test() -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test() -> Int32 {\n"
                                        "  ret 8 * 2;\n"
                                        "}\n test()", "Test1");
     if (result) {
@@ -67,7 +72,8 @@ TEST_CASE("Mul Ints 1", "[mulInts1]") {
 }
 
 TEST_CASE("Mul Ints 2", "[mulInts2]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Int32 {\n"
                                        "  ret 9 * a;\n"
                                        "}\n test(3)", "Test1");
     if (result) {
@@ -79,7 +85,8 @@ TEST_CASE("Mul Ints 2", "[mulInts2]") {
 }
 
 TEST_CASE("Mul Ints 3", "[mulInts3]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Int32 {\n"
                                        "  ret a * b;\n"
                                        "}\n test(60, 2)", "Test1");
     if (result) {
@@ -91,7 +98,8 @@ TEST_CASE("Mul Ints 3", "[mulInts3]") {
 }
 
 TEST_CASE("Add Ints 1", "[addInts1]") {
-    auto result = RocCompiler::compile("fun test() -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test() -> Int32 {\n"
                                        "  ret 1 + 3;\n"
                                        "}\n test()", "Test1");
     if (result) {
@@ -103,7 +111,8 @@ TEST_CASE("Add Ints 1", "[addInts1]") {
 }
 
 TEST_CASE("Add Ints 2", "[addInts2]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Int32 {\n"
                                        "  ret 1 + a;\n"
                                        "}\n test(3)", "Test1");
     if (result) {
@@ -115,7 +124,8 @@ TEST_CASE("Add Ints 2", "[addInts2]") {
 }
 
 TEST_CASE("Add Ints 3", "[addInts3]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Int32 {\n"
                                        "  ret a + b;\n"
                                        "}\n test(1, 3)", "Test1");
     if (result) {
@@ -128,7 +138,8 @@ TEST_CASE("Add Ints 3", "[addInts3]") {
 
 TEST_CASE("Add Ints 4", "[addInts4]") {
     try {
-        RocCompiler::compile("fun test(a Int32, b Int32) -> Int32 {\n"
+        RocCompiler::compile("package main;\n"
+                             "fun test(a Int32, b Int32) -> Int32 {\n"
                                            "  ret \"a\" + b;\n"
                                            "}\n test(1, 3)", "Test1");
     } catch (SyntaxException &ex) {
@@ -137,7 +148,8 @@ TEST_CASE("Add Ints 4", "[addInts4]") {
 }
 
 TEST_CASE("Sub Ints 1", "[subInts1]") {
-    auto result = RocCompiler::compile("fun test() -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test() -> Int32 {\n"
                                        "  ret 1 - 3;\n"
                                        "}\n test()", "Test1");
     if (result) {
@@ -149,7 +161,8 @@ TEST_CASE("Sub Ints 1", "[subInts1]") {
 }
 
 TEST_CASE("Sub Ints 2", "[subInts2]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Int32 {\n"
                                        "  ret 1 - a;\n"
                                        "}\n test(3)", "Test1");
     if (result) {
@@ -161,7 +174,8 @@ TEST_CASE("Sub Ints 2", "[subInts2]") {
 }
 
 TEST_CASE("Sub Ints 3", "[subInts3]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Int32 {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Int32 {\n"
                                        "  ret 1 - a + 5;\n"
                                        "}\n test(3)", "Test1");
     if (result) {
@@ -172,9 +186,12 @@ TEST_CASE("Sub Ints 3", "[subInts3]") {
     }
 }
 
+
+//TODO use toString()
 TEST_CASE("Print Int 1", "[printInt1]") {
-    auto result = RocCompiler::compile("fun test(a Int32) -> Int32 {\n"
-                                       "  println(a.toString());\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32) -> Int32 {\n"
+                                       "  println(a);\n"
                                        "  ret 1;\n"
                                        "}\n test(123)", "Test1");
     if (result) {
@@ -186,7 +203,7 @@ TEST_CASE("Print Int 1", "[printInt1]") {
 }
 
 TEST_CASE("Comparing ints 1", "[comparingInts1]") {
-    auto result = RocCompiler::compile("package main\n fun test(a i32) -> Bool {\n"
+    auto result = RocCompiler::compile("package main;\n fun test(a Int32) -> Bool {\n"
                                        "  ret a == 67;\n"
                                        "}\n test(67)", "Test1");
     if (result) {
@@ -198,7 +215,8 @@ TEST_CASE("Comparing ints 1", "[comparingInts1]") {
 }
 
 TEST_CASE("Comparing ints 2", "[comparingInts2]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Bool {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Bool {\n"
                                        "  ret a == b;\n"
                                        "}", "Test1");
     if (result) {
@@ -211,7 +229,8 @@ TEST_CASE("Comparing ints 2", "[comparingInts2]") {
 }
 
 TEST_CASE("Comparing ints 3", "[comparingInts3]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Bool {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Bool {\n"
                                        "  ret a == b and a == 78;\n"
                                        "}", "Test1");
     if (result) {
@@ -224,7 +243,8 @@ TEST_CASE("Comparing ints 3", "[comparingInts3]") {
 }
 
 TEST_CASE("Comparing ints 4", "[comparingInts4]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Bool {\n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Bool {\n"
                                        "  ret a == b and a != 78;\n"
                                        "}", "Test1");
     if (result) {
@@ -237,10 +257,11 @@ TEST_CASE("Comparing ints 4", "[comparingInts4]") {
 }
 
 TEST_CASE("Comparing ints 5", "[comparingInts5]") {
-    auto result = RocCompiler::compile("fun test(a Int32, b Int32) -> Bool {\n"
-                                       "  if a == b then \n"
+    auto result = RocCompiler::compile("package main;\n"
+                                       "fun test(a Int32, b Int32) -> Bool {\n"
+                                       "  if a == b {\n"
                                        "    ret true\n"
-                                       "  end\n"
+                                       "  }\n"
                                        "  ret false"
                                        "}", "Test1");
     if (result) {
